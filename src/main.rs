@@ -41,5 +41,8 @@ fn main() {
         .expect("failed to execute process");
 
     println!("Checked out at branch {}", args.branch);
-    println!("Succesfully cleaned branch {}!", args.branch.blue().bold())
+    println!(
+        "Succesfully cleaned branch {}!".green(),
+        args.branch.blue().bold()
+    )
 }
