@@ -1,4 +1,5 @@
 use clap::Parser;
+use colored::*;
 use std::process::Command;
 
 #[derive(Parser)]
@@ -8,32 +9,33 @@ struct Cli {
 
 fn main() {
     let args = Cli::parse();
+    println!("{} {} !", "it".green(), "works".blue().bold());
 
-    let output = Command::new("git")
+    Command::new("git")
         .args(&["branch", "-D", "temp"])
         .output()
         .expect("failed to execute process");
     println!("Deleted branch temp");
 
-    let output = Command::new("git")
+    Command::new("git")
         .args(&["checkout", "-b", "temp"])
         .output()
         .expect("failed to execute process");
     println!("Created branch temp");
 
-    let output = Command::new("git")
+    Command::new("git")
         .args(&["branch", "-D", &args.branch])
         .output()
         .expect("failed to execute process");
     println!("Deleted branch {}", args.branch);
 
-    let output = Command::new("git")
+    Command::new("git")
         .args(&["fetch", "origin", &args.branch])
         .output()
         .expect("failed to execute process");
     println!("Fetched branch {}", args.branch);
 
-    let output = Command::new("git")
+    Command::new("git")
         .args(&["checkout", &args.branch])
         .output()
         .expect("failed to execute process");
