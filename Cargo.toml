@@ -1,0 +1,9 @@
+[package]
+name = "git-clean"
+version = "0.1.0"
+edition = "2018"
+
+[[bin]]
+name = "git-clean"
+path = "src/git_clean.rs"
+
