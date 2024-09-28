@@ -1,21 +1,23 @@
-use clap::{App, Arg};
+use clap::Parser;
 use std::process::Command;
 
-fn main() {
-    let matches = App::new("git-clean")
-        .version("1.0")
-        .author("You <you@example.com>")
-        .about("Does awesome things with git")
-        .arg(
-            Arg::with_name("BRANCH")
-                .help("Sets the branch name to use")
-                .required(true)
-                .index(1),
-        )
-        .get_matches();
+#[derive(Parser)]
+struct Cli {
+    branch: String,
+}
 
-    // Obtiene el valor del argumento BRANCH
-    let branch = matches.value_of("BRANCH").unwrap();
+fn main() {
+    let args = Cli::parse();
+    println!("{}", args.branch);
+    Command::new("git")
+        .args(&["branch", "-D", "temp"])
+        .output()
+        .expect("failed to execute process");
+
+    Command::new("git")
+        .args(&["checkout", "-b", "temp"])
+        .output()
+        .expect("failed to execute process");
 
     Command::new("git")
         .args(&["branch", "-D", branch])
@@ -32,5 +34,5 @@ fn main() {
         .output()
         .expect("failed to execute process");
 
-    println!("{}", String::from_utf8_lossy(&output.stdout))
+    // println!("{}", String::from_utf8_lossy(&output.stdout))
 }
