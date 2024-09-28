@@ -42,7 +42,8 @@ fn main() {
 
     println!("Checked out at branch {}", args.branch);
     println!(
-        "Succesfully cleaned branch {}!".green(),
+        "{} {}!",
+        "Succesfully cleaned branch ".green(),
         args.branch.blue().bold()
     )
 }
